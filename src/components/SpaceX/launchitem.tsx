@@ -38,7 +38,9 @@ const LaunchItem: React.FC<{ launch: LaunchDetails }> = ({ launch }) => {
             alt="Description"
             className="w-[100px] h-[110px]"
           />
-          <p className="pt-2 max-w-[500px] text-left">{launch.details}</p>
+          <p className="pt-2 max-w-[500px] text-left">
+            {launch.details ? launch.details : "No data"}
+          </p>
         </div>
       </div>
       <div className="w-fit mt-4">

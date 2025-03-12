@@ -1,12 +1,5 @@
 import Grid from "@mui/material/Grid2";
-import React, {
-  ChangeEventHandler,
-  lazy,
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { LaunchDetails } from "../types";
 import { fetchApi } from "../../requests";
 import Spinner from "../Spinner";
@@ -19,6 +12,7 @@ const Home: React.FC = () => {
   const [visibleData, setVisibleData] = useState<LaunchDetails[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const loader = useRef<HTMLDivElement | null>(null);
 
   const ITEMS_PER_PAGE = 8;
@@ -51,12 +45,18 @@ const Home: React.FC = () => {
     };
   }, [loader, loading, visibleData]);
 
+  const filteredData = searchTerm
+    ? spacex.filter((item) =>
+        item.mission_name.toLowerCase().includes(searchTerm)
+      )
+    : spacex;
+
   const loadMoreItems = () => {
     setLoading(true);
     const nextPage = page + 1;
     const start = (nextPage - 1) * ITEMS_PER_PAGE;
     const end = start + ITEMS_PER_PAGE;
-    const moreItems = spacex.slice(start, end);
+    const moreItems = filteredData.slice(start, end);
 
     if (moreItems.length > 0) {
       setVisibleData((prev) => [...prev, ...moreItems]);
@@ -67,16 +67,21 @@ const Home: React.FC = () => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
+    const value = event.target.value.toLowerCase();
+    setSearchTerm(value);
+    setPage(1);
+    const filtered = spacex.filter((item) =>
+      item.mission_name.toLowerCase().includes(value)
+    );
+    setVisibleData(filtered.slice(0, ITEMS_PER_PAGE)); // First page of search result
   };
+
   return (
     <Grid className="h-[90vh] w-[500px] overflow-auto scrollbar-hide">
       <Grid size={12}>
         <div className="m-2">
           <TextField
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              handleChange(event);
-            }}
+            onChange={handleChange}
             id="outlined-basic"
             label="Search..."
             variant="outlined"
@@ -107,7 +112,11 @@ const Home: React.FC = () => {
         ref={loader}
         className="h-10 w-full flex justify-center items-center"
       >
-        {loading && <Spinner />}
+        {loading ? (
+          <Spinner />
+        ) : visibleData.length >= filteredData.length ? (
+          <span className="text-white">End of List</span>
+        ) : null}
       </div>
     </Grid>
   );
