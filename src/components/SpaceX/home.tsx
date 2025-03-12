@@ -73,8 +73,8 @@ const Home: React.FC = () => {
   }, [loader, loading, filteredData, page, searchTerm]);
 
   return (
-    <>
-      <div className="mb-2 shadow-md">
+    <div className="justify-center">
+      <div className="mb-2 shadow-md w-[400px] sm:w-[500px] lg:w-[600px]">
         <TextField
           onChange={handleChange}
           id="outlined-basic"
@@ -96,7 +96,7 @@ const Home: React.FC = () => {
           }}
         />
       </div>
-      <Grid className="h-[90vh] w-[500px] overflow-auto scrollbar-hide top-5 p-2">
+      <Grid className="h-[90vh] w-[400px] sm:w-[500px] lg:w-[600px] overflow-auto scrollbar-hide top-5 p-2">
         <Grid size={12}>
           <Suspense fallback={<Spinner />}>
             {visibleData.map((item) => (
@@ -112,13 +112,13 @@ const Home: React.FC = () => {
           {loading ? (
             <Spinner />
           ) : visibleData.length >= filteredData.length && !searchTerm ? (
-            <span className="text-white">End of List</span>
+            <span className="text-black">End of List..</span>
           ) : (
             !searchTerm && <Spinner />
           )}
         </div>
       </Grid>
-    </>
+    </div>
   );
 };
 
