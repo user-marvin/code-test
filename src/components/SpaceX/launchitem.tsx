@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const LaunchItem: React.FC<{ launch: LaunchDetails }> = ({ launch }) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   return (
-    <div className="p-4 border rounded mb-2">
+    <div className="p-4 rounded mb-2 shadow-md">
       <div className="flex flex-row gap-3 mb-3">
         <h2 className="font-bold text-2xl text-left">{launch.mission_name}</h2>
         <h4

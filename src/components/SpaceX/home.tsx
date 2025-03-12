@@ -74,7 +74,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <div className="mb-2">
+      <div className="mb-2 shadow-md">
         <TextField
           onChange={handleChange}
           id="outlined-basic"
@@ -84,19 +84,19 @@ const Home: React.FC = () => {
             width: "100%",
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
-                borderColor: "white",
+                borderColor: "#242424",
               },
             },
             input: {
-              color: "white",
+              color: "#242424",
             },
             label: {
-              color: "white",
+              color: "#242424",
             },
           }}
         />
       </div>
-      <Grid className="h-[90vh] w-[500px] overflow-auto scrollbar-hide top-5">
+      <Grid className="h-[90vh] w-[500px] overflow-auto scrollbar-hide top-5 p-2">
         <Grid size={12}>
           <Suspense fallback={<Spinner />}>
             {visibleData.map((item) => (
