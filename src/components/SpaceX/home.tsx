@@ -21,6 +21,7 @@ const Home: React.FC = () => {
     const fetchData = async () => {
       setLoading(true);
       const data = await fetchApi();
+      console.log(data);
       setSpacex(data);
       setVisibleData(data.slice(0, ITEMS_PER_PAGE));
       setLoading(false);

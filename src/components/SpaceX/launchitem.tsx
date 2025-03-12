@@ -11,10 +11,10 @@ const LaunchItem: React.FC<{ launch: LaunchDetails }> = ({ launch }) => {
         <h2 className="font-bold text-2xl text-left">{launch.mission_name}</h2>
         <h4
           className={`p-1 text-xs font-bold pt-2 rounded ${
-            launch.upcoming ? "bg-green-500" : "bg-blue-300"
+            launch.upcoming ? "bg-blue-300" : "bg-green-500"
           }`}
         >
-          {launch.upcoming ? "Success" : "Upcoming"}
+          {launch.upcoming ? "Upcoming" : "Success"}
         </h4>
       </div>
       <div className={`flex flex-col ${isClicked ? "block" : "hidden"}`}>
